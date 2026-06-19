@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natasha & Joe — 08.08.2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Palatino+Linotype:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F3;
+    --cream-dark: #F2EFE6;
+    --sage: #7A8C6E;
+    --sage-light: #A8B99A;
+    --sage-dark: #556348;
+    --gold: #C4A35A;
+    --gold-light: #E8D5A3;
+    --text-dark: #2C2C28;
+    --text-mid: #5C5C52;
+    --text-light: #8A8A7E;
+    --white: #FFFFFF;
+    --font-serif: 'EB Garamond', 'Palatino Linotype', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--text-dark);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(250,248,243,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gold-light);
+    z-index: 100;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--sage-dark); }
+
+  .lang-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--cream-dark);
+    border-radius: 4px;
+    padding: 2px;
+  }
+
+  .lang-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: var(--font-sans);
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    background: var(--white);
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text-dark);
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-photos {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    align-items: flex-end;
+  }
+
+  .hero-photo {
+    width: 140px;
+    height: 180px;
+    background: var(--cream-dark);
+    border: 1px solid var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 13px;
+    position: relative;
+  }
+
+  .hero-photo.bride { transform: rotate(-2deg); }
+  .hero-photo.groom { transform: rotate(2deg); }
+
+  .photo-label {
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 0 1rem;
+    align-self: center;
+  }
+
+  .hero-names {
+    font-family: var(--font-serif);
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+
+  .hero-ampersand { color: var(--sage); font-style: italic; }
+
+  .hero-date {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-location {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--text-mid);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage-light);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-light);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold-light), transparent);
+  }
+
+  section {
+    padding: 5rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .section-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 3rem;
+  }
+
+  .week-day {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .week-day:hover, .week-day.active {
+    border-color: var(--sage);
+    background: var(--cream-dark);
+  }
+
+  .week-day.has-event::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin: 6px auto 0;
+  }
+
+  .week-day.wedding-day {
+    border-color: var(--gold);
+    background: var(--gold-light);
+  }
+
+  .week-day-name {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .week-day-num {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    display: block;
+    line-height: 1;
+  }
+
+  .week-day-label {
+    font-size: 9px;
+    color: var(--sage-dark);
+    margin-top: 4px;
+    display: block;
+    line-height: 1.3;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold-light), var(--sage-light), var(--gold-light));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 2rem 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+  }
+
+  .timeline-item.highlight::before {
+    background: var(--sage);
+    width: 12px;
+    height: 12px;
+    left: -6px;
+  }
+
+  .timeline-time {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .timeline-event {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .timeline-note { font-size: 13px; color: var(--text-mid); }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+
+  .faq-item {
+    border-top: 1px solid var(--cream-dark);
+    padding: 1.25rem 0;
+    cursor: pointer;
+  }
+
+  .faq-item:last-child { border-bottom: 1px solid var(--cream-dark); }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--text-dark);
+  }
+
+  .faq-chevron {
+    color: var(--sage);
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .faq-answer {
+    display: none;
+    padding-top: 0.75rem;
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .faq-item.open .faq-answer { display: block; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-sans);
+  }
+
+  .btn-sage { background: var(--sage); color: var(--white); }
+  .btn-sage:hover { background: var(--sage-dark); }
+  .btn-outline { background: transparent; color: var(--sage-dark); border: 1px solid var(--sage); }
+  .btn-outline:hover { background: var(--sage); color: var(--white); }
+  .btn-gold { background: var(--gold); color: var(--white); }
+  .btn-gold:hover { background: var(--sage-dark); }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .hen-stag-toggle {
+    display: flex;
+    border: 1px solid var(--cream-dark);
+    width: fit-content;
+    margin-bottom: 3rem;
+    overflow: hidden;
+  }
+
+  .hs-btn {
+    padding: 10px 28px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-mid);
+    font-family: var(--font-sans);
+    transition: all 0.2s;
+  }
+
+  .hs-btn.active { background: var(--sage); color: var(--white); }
+
+  .map-container {
+    width: 100%;
+    height: 360px;
+    border: 1px solid var(--gold-light);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .map-container iframe { width: 100%; height: 100%; border: none; }
+
+  .contact-strip {
+    background: var(--text-dark);
+    color: var(--cream);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .contact-strip .section-label { color: var(--sage-light); }
+  .contact-strip .section-title { color: var(--cream); }
+
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    font-family: var(--font-sans);
+    margin-top: 1.5rem;
+    transition: opacity 0.2s;
+  }
+
+  .whatsapp-btn:hover { opacity: 0.9; }
+
+  footer {
+    background: var(--cream-dark);
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    border-top: 1px solid var(--gold-light);
+  }
+
+  .placeholder-section {
+    background: var(--white);
+    border: 1px dashed var(--gold-light);
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+  }
+
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--gold-light);
+    padding: 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 99;
+  }
+
+  .mobile-nav.open { display: flex; }
+
+  .mobile-nav a {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+  }
+
+  .ru { display: none; }
+  .lang-ru .en { display: none; }
+  .lang-ru .ru { display: inline; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-photos { gap: 1.5rem; }
+    .hero-photo { width: 110px; height: 145px; }
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    section { padding: 3.5rem 1.25rem; }
+    .btn-group { flex-direction: column; }
+    .btn { justify-content: center; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .week-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero-photo { width: 90px; height: 120px; }
+  }
+</style>
+</head>
+<body class="lang-en" id="site">
+
+<nav>
+  <span class="nav-logo">N <span style="color:var(--sage)">& </span>J</span>
+  <ul class="nav-links">
+    <li><a href="#wedding-day"><span class="en">Wedding Day</span><span class="ru">День свадьбы</span></a></li>
+    <li><a href="#week"><span class="en">Week</span><span class="ru">Неделя</span></a></li>
+    <li><a href="#hen-stag"><span class="en">Hen & Stag</span><span class="ru">Девичник</span></a></li>
+    <li><a href="#travel"><span class="en">Travel</span><span class="ru">Поездка</span></a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact"><span class="en">Contact</span><span class="ru">Контакт</span></a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#wedding-day" onclick="toggleMenu()"><span class="en">Wedding Day</span><span class="ru">День свадьбы</span></a>
+  <a href="#week" onclick="toggleMenu()"><span class="en">Week Schedule</span><span class="ru">Расписание</span></a>
+  <a href="#hen-stag" onclick="toggleMenu()"><span class="en">Hen & Stag</span><span class="ru">Девичник и Мальчишник</span></a>
+  <a href="#gifts" onclick="toggleMenu()"><span class="en">Gifts</span><span class="ru">Подарки</span></a>
+  <a href="#travel" onclick="toggleMenu()"><span class="en">Travel Guide</span><span class="ru">Путеводитель</span></a>
+  <a href="#photos" onclick="toggleMenu()"><span class="en">Photos</span><span class="ru">Фотографии</span></a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#contact" onclick="toggleMenu()"><span class="en">Contact</span><span class="ru">Контакт</span></a>
+</div>
+
+<div class="hero" id="home">
+  <div class="hero-photos">
+    <div class="hero-photo bride">
+      <span><span class="en">Photo of<br>Natasha</span><span class="ru">Фото<br>Наташи</span></span>
+      <span class="photo-label"><span class="en">The Bride</span><span class="ru">Невеста</span></span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-photo groom">
+      <span><span class="en">Photo of<br>Joe</span><span class="ru">Фото<br>Джо</span></span>
+      <span class="photo-label"><span class="en">The Groom</span><span class="ru">Жених</span></span>
+    </div>
+  </div>
+
+  <p class="hero-date">08 · 08 · 2026</p>
+  <h1 class="hero-names">Natasha <span class="hero-ampersand">&</span> Joe</h1>
+  <p class="hero-location">Bliss Hoi An Beach Resort, Vietnam</p>
+  <p class="hero-tagline">
+    <span class="en">Join us for a week in paradise</span>
+    <span class="ru">Присоединяйтесь к нам на неделю в раю</span>
+  </p>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span><span class="en">Scroll</span><span class="ru">Листайте</span></span>
+  </div>
+</div>
+
+<section id="wedding-day">
+  <p class="section-label"><span class="en">Saturday, 8th August 2026</span><span class="ru">Суббота, 8 августа 2026</span></p>
+  <h2 class="section-title"><span class="en">The Wedding Day</span><span class="ru">День свадьбы</span></h2>
+  <div class="section-rule"></div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <p class="timeline-time">3:30 — 4:00 pm</p>
+      <p class="timeline-event"><span class="en">Welcome Drinks</span><span class="ru">Приветственные напитки</span></p>
+      <p class="timeline-note"><span class="en">Arrive, settle in, and raise a glass</span><span class="ru">Приезжайте, располагайтесь и поднимите бокал</span></p>
+    </div>
+    <div class="timeline-item highlight">
+      <p class="timeline-time">4:00 — 4:30 pm</p>
+      <p class="timeline-event"><span class="en">Ceremony</span><span class="ru">Церемония</span></p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">5:00 — 6:00 pm</p>
+      <p class="timeline-event"><span class="en">Guest Photos & Drinks</span><span class="ru">Фото гостей и напитки</span></p>
+    </div>
+    <div class="timeline-item highlight">
+      <p class="timeline-time">6:00 — 9:00 pm</p>
+      <p class="timeline-event"><span class="en">Reception</span><span class="ru">Приём</span></p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">7:30 pm</p>
+      <p class="timeline-event"><span class="en">First Dance</span><span class="ru">Первый танец</span></p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">8:15 pm</p>
+      <p class="timeline-event"><span class="en">Wedding Cake</span><span class="ru">Свадебный торт</span></p>
+    </div>
+    <div class="timeline-item highlight">
+      <p class="timeline-time">9:00 pm — Midnight</p>
+      <p class="timeline-event"><span class="en">Bonfire on the Beach</span><span class="ru">Костёр на пляже</span></p>
+      <p class="timeline-note"><span class="en">End the night under the stars</span><span class="ru">Завершите вечер под звёздами</span></p>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem">
+    <p class="section-label"><span class="en">Venue</span><span class="ru">Место проведения</span></p>
+    <div class="map-container">
+      <iframe src="https://maps.google.com/maps?q=Bliss+Hoi+An+Beach+Resort&output=embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="week" style="background:var(--white);max-width:100%;padding:5rem 2rem;">
+<div style="max-width:900px;margin:0 auto">
+  <p class="section-label"><span class="en">3rd — 9th August 2026</span><span class="ru">3–9 августа 2026</span></p>
+  <h2 class="section-title"><span class="en">Week Schedule</span><span class="ru">Расписание недели</span></h2>
+  <div class="section-rule"></div>
+
+  <div class="week-grid">
+    <div class="week-day has-event" onclick="showDay('mon', event)">
+      <span class="week-day-name">Mon</span>
+      <span class="week-day-num">3</span>
+      <span class="week-day-label"><span class="en">Arrivals</span><span class="ru">Прилёт</span></span>
+    </div>
+    <div class="week-day has-event" onclick="showDay('tue', event)">
+      <span class="week-day-name">Tue</span>
+      <span class="week-day-num">4</span>
+      <span class="week-day-label"><span class="en">Hoi An Day</span><span class="ru">Хойан</span></span>
+    </div>
+    <div class="week-day has-event" onclick="showDay('wed', event)">
+      <span class="week-day-name">Wed</span>
+      <span class="week-day-num">5</span>
+      <span class="week-day-label"><span class="en">Fittings & Golf</span><span class="ru">Примерка</span></span>
+    </div>
+    <div class="week-day has-event" onclick="showDay('thu', event)">
+      <span class="week-day-name">Thu</span>
+      <span class="week-day-num">6</span>
+      <span class="week-day-label"><span class="en">Hen & Stag</span><span class="ru">Девичник</span></span>
+    </div>
+    <div class="week-day has-event" onclick="showDay('fri', event)">
+      <span class="week-day-name">Fri</span>
+      <span class="week-day-num">7</span>
+      <span class="week-day-label"><span class="en">Recovery Day</span><span class="ru">Отдых</span></span>
+    </div>
+    <div class="week-day wedding-day" onclick="showDay('sat', event)">
+      <span class="week-day-name">Sat</span>
+      <span class="week-day-num">8</span>
+      <span class="week-day-label"><span class="en">Wedding ✦</span><span class="ru">Свадьба ✦</span></span>
+    </div>
+    <div class="week-day has-event" onclick="showDay('sun', event)">
+      <span class="week-day-name">Sun</span>
+      <span class="week-day-num">9</span>
+      <span class="week-day-label"><span class="en">Farewell</span><span class="ru">Прощание</span></span>
+    </div>
+  </div>
+
+  <div id="day-mon" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Monday 3rd — Arrivals</span><span class="ru">Понедельник 3-го — Прилёт</span></h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-time">10:00 pm</p>
+        <p class="timeline-event"><span class="en">Natasha & Joe land in Da Nang</span><span class="ru">Наташа и Джо прилетают в Дананг</span></p>
+        <p class="timeline-note"><span class="en">Late night dinner & beers — if you're in the city, come find us</span><span class="ru">Поздний ужин и пиво — если вы в городе, присоединяйтесь</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="day-tue" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Tuesday 4th — The Hoi An Day</span><span class="ru">Вторник 4-го — День в Хойане</span></h3>
+    <div class="timeline">
+      <div class="timeline-item"><p class="timeline-time">11:00 am</p><p class="timeline-event"><span class="en">Depart by private minibus from Bliss Hoi An</span><span class="ru">Отъезд на микроавтобусе из Bliss Hoi An</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">11:30 am</p><p class="timeline-event"><span class="en">The Split — Old Town Drop-off</span><span class="ru">Разделение — Старый город</span></p><p class="timeline-note"><span class="en">👔 Lads: Yaly Couture for suit fittings + Friendly Shoe Shop · 🌸 Families: Ancient Town boutiques & cafes</span><span class="ru">👔 Мужчины: примерка костюмов · 🌸 Семьи: бутики и кафе Старого города</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">1:30 pm</p><p class="timeline-event"><span class="en">Bánh Mì Run</span><span class="ru">Сэндвичи Bánh Mì</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">2:30 pm</p><p class="timeline-event"><span class="en">Regroup at Le Cabanon</span><span class="ru">Встреча в Le Cabanon</span></p><p class="timeline-note"><span class="en">Cold beers on the riverfront patio</span><span class="ru">Холодное пиво на террасе у реки</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">3:30 pm</p><p class="timeline-event"><span class="en">Group Sightseeing — Assembly Halls & Ancient Houses</span><span class="ru">Экскурсия — исторические здания</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">5:30 pm</p><p class="timeline-event"><span class="en">Sunset Lantern Boats</span><span class="ru">Лодки с фонарями на закате</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">7:00 pm</p><p class="timeline-event"><span class="en">Return to Bliss Hoi An</span><span class="ru">Возвращение в Bliss Hoi An</span></p></div>
+    </div>
+  </div>
+
+  <div id="day-wed" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Wednesday 5th — Fittings & Golf</span><span class="ru">Среда 5-го — Примерка и гольф</span></h3>
+    <div class="timeline">
+      <div class="timeline-item"><p class="timeline-time"><span class="en">Morning</span><span class="ru">Утро</span></p><p class="timeline-event"><span class="en">Bruce & Joe — Golf</span><span class="ru">Брюс и Джо — гольф</span></p></div>
+      <div class="timeline-item"><p class="timeline-time"><span class="en">During the day</span><span class="ru">В течение дня</span></p><p class="timeline-event"><span class="en">Second suit fittings in Hoi An</span><span class="ru">Вторая примерка костюмов в Хойане</span></p><p class="timeline-note"><span class="en">No fixed time — go individually or together</span><span class="ru">Без фиксированного времени — индивидуально или вместе</span></p></div>
+      <div class="timeline-item"><p class="timeline-time">5:00 pm</p><p class="timeline-event"><span class="en">Beach Volleyball</span><span class="ru">Пляжный волейбол</span></p></div>
+    </div>
+  </div>
+
+  <div id="day-thu" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Thursday 6th — Hen & Stag</span><span class="ru">Четверг 6-го — Девичник и мальчишник</span></h3>
+    <p style="color:var(--text-mid);margin-bottom:1.5rem"><span class="en">Full details on the Hen & Stag page below.</span><span class="ru">Подробности на странице девичника и мальчишника.</span></p>
+    <a href="#hen-stag" class="btn btn-outline"><span class="en">View Hen & Stag Plans</span><span class="ru">Смотреть планы</span></a>
+  </div>
+
+  <div id="day-fri" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Friday 7th — Recovery Day</span><span class="ru">Пятница 7-го — День восстановления</span></h3>
+    <div class="timeline">
+      <div class="timeline-item"><p class="timeline-event"><span class="en">Sauna, massages & rest</span><span class="ru">Сауна, массаж и отдых</span></p></div>
+      <div class="timeline-item"><p class="timeline-event"><span class="en">Reggae Night</span><span class="ru">Вечер регги</span></p></div>
+    </div>
+  </div>
+
+  <div id="day-sat" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Saturday 8th — Wedding Day ✦</span><span class="ru">Суббота 8-го — День свадьбы ✦</span></h3>
+    <p style="color:var(--text-mid);margin-bottom:1.5rem"><span class="en">Full timeline above. Morning: breakfast together.</span><span class="ru">Полное расписание выше. Утро: завтрак вместе.</span></p>
+    <a href="#wedding-day" class="btn btn-gold"><span class="en">View Wedding Day Timeline</span><span class="ru">Расписание свадьбы</span></a>
+  </div>
+
+  <div id="day-sun" class="day-panel" style="display:none;padding:2rem 0;border-top:1px solid var(--gold-light)">
+    <h3 style="font-family:var(--font-serif);font-size:1.4rem;margin-bottom:1.5rem"><span class="en">Sunday 9th — Farewell</span><span class="ru">Воскресенье 9-го — Прощание</span></h3>
+    <div class="timeline">
+      <div class="timeline-item"><p class="timeline-event"><span class="en">Breakfast together</span><span class="ru">Завтрак вместе</span></p></div>
+      <div class="timeline-item"><p class="timeline-event"><span class="en">Lunch — details TBC</span><span class="ru">Обед — детали уточняются</span></p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="hen-stag">
+  <p class="section-label"><span class="en">Thursday 6th August</span><span class="ru">Четверг, 6 августа</span></p>
+  <h2 class="section-title"><span class="en">Hen & Stag</span><span class="ru">Девичник и Мальчишник</span></h2>
+  <div class="section-rule"></div>
+
+  <div class="hen-stag-toggle">
+    <button class="hs-btn active" onclick="showHS('hen', event)"><span class="en">Hen Party 🌸</span><span class="ru">Девичник 🌸</span></button>
+    <button class="hs-btn" onclick="showHS('stag', event)"><span class="en">Stag Do 🍺</span><span class="ru">Мальчишник 🍺</span></button>
+  </div>
+
+  <div id="hs-hen">
+    <div class="placeholder-section">
+      <span class="en">Hen party details coming soon — watch this space</span>
+      <span class="ru">Подробности девичника появятся скоро</span>
+    </div>
+  </div>
+
+  <div id="hs-stag" style="display:none">
+    <div style="text-align:center;padding:3rem;background:var(--white);border:1px solid var(--cream-dark)">
+      <p style="font-family:var(--font-serif);font-size:1.8rem;margin-bottom:1rem"><span class="en">Stag Party</span><span class="ru">Мальчишник</span></p>
+      <p style="font-family:var(--font-serif);font-style:italic;font-size:1.2rem;color:var(--text-mid)"><span class="en">Talk to Dan.</span><span class="ru">Поговорите с Дэном.</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="gifts" style="background:var(--white);max-width:100%;padding:5rem 2rem">
+<div style="max-width:900px;margin:0 auto">
+  <p class="section-label"><span class="en">Gifts</span><span class="ru">Подарки</span></p>
+  <h2 class="section-title"><span class="en">Gifts</span><span class="ru">Подарки</span></h2>
+  <div class="section-rule"></div>
+  <div class="placeholder-section">
+    <span class="en">Gift information coming soon</span>
+    <span class="ru">Информация о подарках появится скоро</span>
+  </div>
+</div>
+</section>
+
+<section id="travel">
+  <p class="section-label"><span class="en">Getting There</span><span class="ru">Как добраться</span></p>
+  <h2 class="section-title"><span class="en">Travel Guide</span><span class="ru">Путеводитель</span></h2>
+  <div class="section-rule"></div>
+  <div class="placeholder-section">
+    <span class="en">Flights, accommodation & local tips — coming soon</span>
+    <span class="ru">Перелёты, проживание и местные советы — скоро</span>
+  </div>
+</section>
+
+<section id="photos" style="background:var(--white);max-width:100%;padding:5rem 2rem">
+<div style="max-width:900px;margin:0 auto">
+  <p class="section-label"><span class="en">Photos</span><span class="ru">Фотографии</span></p>
+  <h2 class="section-title"><span class="en">Photos</span><span class="ru">Фотографии</span></h2>
+  <div class="section-rule"></div>
+  <div class="placeholder-section">
+    <span class="en">Photos will appear here after the wedding</span>
+    <span class="ru">Фотографии появятся здесь после свадьбы</span>
+  </div>
+</div>
+</section>
+
+<section id="faq">
+  <p class="section-label">FAQ</p>
+  <h2 class="section-title"><span class="en">Frequently Asked Questions</span><span class="ru">Часто задаваемые вопросы</span></h2>
+  <div class="section-rule"></div>
+
+  <div class="faq-list">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <span><span class="en">Do I need a visa to visit Vietnam?</span><span class="ru">Нужна ли виза для въезда во Вьетнам?</span></span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-answer"><span class="en">Visa requirements vary by nationality. Most EU and UK citizens can enter Vietnam visa-free for up to 45 days. Check with your country's embassy closer to the date.</span><span class="ru">Требования к визам зависят от гражданства. Большинство граждан ЕС и Великобритании могут въезжать без визы на срок до 45 дней.</span></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <span><span class="en">What currency is used?</span><span class="ru">Какая валюта используется?</span></span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-answer"><span class="en">Vietnamese Dong (VND). USD is widely accepted. ATMs are easy to find in Da Nang and Hoi An. Cards work at most hotels and restaurants.</span><span class="ru">Вьетнамский донг (VND). USD широко принимается. Банкоматы есть в Дананге и Хойане.</span></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <span><span class="en">What's the weather like in August?</span><span class="ru">Какая погода в августе?</span></span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-answer"><span class="en">Hot and humid — expect 28–34°C. August can bring occasional short rain showers but is generally sunny. Pack light, breathable clothing.</span><span class="ru">Жарко и влажно — ожидайте 28–34°C. В августе возможны короткие дожди, но в целом солнечно.</span></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <span><span class="en">What is the dress code?</span><span class="ru">Каков дресс-код?</span></span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-answer"><span class="en">To be confirmed — check back soon.</span><span class="ru">Уточняется — следите за обновлениями.</span></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <span><span class="en">Is the wedding child-friendly?</span><span class="ru">Подходит ли свадьба для детей?</span></span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-answer"><span class="en">Please reach out via WhatsApp if you have questions about bringing children.</span><span class="ru">Свяжитесь с нами через WhatsApp по вопросам о детях.</span></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <span><span class="en">When do I need to RSVP by?</span><span class="ru">До какого числа нужно подтвердить участие?</span></span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-answer"><span class="en">RSVP date to be confirmed. Please fill in the form below.</span><span class="ru">Дата подтверждения уточняется. Пожалуйста, заполните форму ниже.</span></div>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <a href="https://forms.google.com" class="btn btn-sage" target="_blank"><span class="en">RSVP Now</span><span class="ru">Подтвердить участие</span></a>
+  </div>
+</section>
+
+<div class="contact-strip" id="contact">
+  <p class="section-label"><span class="en">Questions?</span><span class="ru">Вопросы?</span></p>
+  <h2 class="section-title" style="font-family:var(--font-serif)"><span class="en">Get in Touch</span><span class="ru">Свяжитесь с нами</span></h2>
+  <p style="color:#A8B99A;max-width:400px;margin:0 auto 0.5rem;font-size:14px">
+    <span class="en">Message Joe directly on WhatsApp for anything at all.</span>
+    <span class="ru">Напишите Джо напрямую в WhatsApp по любому вопросу.</span>
+  </p>
+  <a class="whatsapp-btn" href="https://wa.me/79251659766" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.506 3.93 1.395 5.6L0 24l6.545-1.368A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.364l-.36-.214-3.722.978.995-3.632-.235-.373A9.818 9.818 0 1112 21.818z"/></svg>
+    <span class="en">Message Joe on WhatsApp</span>
+    <span class="ru">Написать Джо в WhatsApp</span>
+  </a>
+  <p style="color:#666;font-size:12px;margin-top:1rem">joedawes.dawes@gmail.com</p>
+</div>
+
+<footer>
+  <p style="font-family:var(--font-serif);font-size:1rem;color:var(--text-mid);margin-bottom:0.5rem">Natasha & Joe · 08.08.2026</p>
+  <p><span class="en">Bliss Hoi An Beach Resort, Vietnam</span><span class="ru">Bliss Hoi An Beach Resort, Вьетнам</span></p>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.getElementById('site').className = 'lang-' + lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+}
+
+function toggleMenu() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+function showDay(day, e) {
+  var panels = document.querySelectorAll('.day-panel');
+  var days = document.querySelectorAll('.week-day');
+  var panel = document.getElementById('day-' + day);
+  var currentlyOpen = panel.style.display === 'block';
+  panels.forEach(p => p.style.display = 'none');
+  days.forEach(d => d.classList.remove('active'));
+  if (!currentlyOpen) {
+    panel.style.display = 'block';
+    e.currentTarget.classList.add('active');
+    setTimeout(function(){ panel.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 50);
+  }
+}
+
+function showHS(party, e) {
+  document.getElementById('hs-hen').style.display = party === 'hen' ? 'block' : 'none';
+  document.getElementById('hs-stag').style.display = party === 'stag' ? 'block' : 'none';
+  document.querySelectorAll('.hs-btn').forEach(b => b.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+}
+
+function toggleFaq(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
