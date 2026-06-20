@@ -794,23 +794,28 @@
 </footer>
 
 <script>
-  // COUNTDOWN — target 3:30pm Vietnam time (UTC+7) on 8 Aug 2026 = 08:30 UTC
+  // COUNTDOWN
+  var weddingTime = Date.UTC(2026, 7, 8, 8, 30, 0);
   function updateCountdown() {
-    var target = new Date('2026-08-08T08:30:00.000Z');
-    var now = new Date();
-    var diff = target.getTime() - now.getTime();
+    var now = Date.now();
+    var diff = weddingTime - now;
     if (diff <= 0) {
-      document.getElementById('countdown').innerHTML = '<p style="font-family:var(--font-serif);font-size:1.5rem;color:var(--gold)">Today is the day! ✦</p>';
+      var el = document.getElementById('countdown');
+      if (el) el.innerHTML = '<p style="font-family:serif;font-size:1.5rem;color:#C4A35A">Today is the day!</p>';
       return;
     }
     var d = Math.floor(diff / 86400000);
     var h = Math.floor((diff % 86400000) / 3600000);
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = d;
-    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+    var ed = document.getElementById('cd-days');
+    var eh = document.getElementById('cd-hours');
+    var em = document.getElementById('cd-mins');
+    var es = document.getElementById('cd-secs');
+    if (ed) ed.textContent = d;
+    if (eh) eh.textContent = (h < 10 ? '0' : '') + h;
+    if (em) em.textContent = (m < 10 ? '0' : '') + m;
+    if (es) es.textContent = (s < 10 ? '0' : '') + s;
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -969,14 +974,14 @@
 
       // Hen or Stag
       html += '<div class="q-field"><label class="q-label">Hen or Stag?</label><div class="q-radio-group">';
-      ['Hen party','Stag do','Neither','I need more information — please contact me'].forEach(function(opt){
+      ['Hen party','Stag do','Neither','I need more information - please contact me'].forEach(function(opt){
         var checked = g.henStag === opt ? 'checked' : '';
         html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_henstag" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
       });
       html += '</div></div>';
 
       // Welcome drink
-      html += '<div class="q-field"><label class="q-label">Welcome drink — cocktail or mocktail?</label><div class="q-radio-group">';
+      html += '<div class="q-field"><label class="q-label">Welcome drink - cocktail or mocktail?</label><div class="q-radio-group">';
       ['Cocktail','Mocktail'].forEach(function(opt){
         var checked = g.drink === opt ? 'checked' : '';
         html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_drink" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
@@ -985,7 +990,7 @@
 
       // Allergies
       html += '<div class="q-field"><label class="q-label">Allergies <span style="color:var(--gold)">★</span></label>';
-      html += '<p class="q-note">Please list any allergies — this is important for catering. Leave blank if none.</p>';
+      html += '<p class="q-note">Please list any allergies - this is important for catering. Leave blank if none.</p>';
       html += '<textarea class="q-textarea" id="g'+i+'_allergies" placeholder="e.g. nuts, shellfish, gluten..." oninput="saveCache()">'+(g.allergies||'')+'</textarea></div>';
 
       // Dietary style
@@ -1002,12 +1007,12 @@
 
       // Dietary preferences
       html += '<div class="q-field"><label class="q-label">Dietary preferences</label>';
-      html += '<p class="q-note">Anything useful to know that isn't an allergy — e.g. strong dislikes, religious preferences, etc. Leave blank if none.</p>';
+      html += '<p class="q-note">Anything useful to know that isn't an allergy - e.g. strong dislikes, religious preferences, etc. Leave blank if none.</p>';
       html += '<textarea class="q-textarea" id="g'+i+'_dietpref" placeholder="Leave blank if none" oninput="saveCache()">'+(g.dietPref||'')+'</textarea></div>';
 
       // Tailored suit
       html += '<div class="q-field"><label class="q-label">Interested in a tailored suit or custom dress? <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:11px">(we are negotiating a group rate)</span></label><div class="q-radio-group">';
-      ['Yes','No','Maybe — tell me more'].forEach(function(opt){
+      ['Yes','No','Maybe - tell me more'].forEach(function(opt){
         var checked = g.suit === opt ? 'checked' : '';
         html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_suit" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
       });
@@ -1086,7 +1091,7 @@
     saveCache();
     var cache = getCache();
 
-    // Build email body to send via mailto (fallback — no backend needed)
+    // Build email body to send via mailto (fallback - no backend needed)
     var body = 'WEDDING QUESTIONNAIRE SUBMISSION\n\n';
     body += 'Check-in: ' + cache.checkin + '\n';
     body += 'Check-out: ' + cache.checkout + '\n';
@@ -1116,7 +1121,7 @@
       document.getElementById('q-success').style.display = 'block';
     }).catch(function() {
       // Fallback to mailto if fetch fails
-      var subject = 'Wedding Questionnaire — ' + ((cache.guests&&cache.guests[0])?cache.guests[0].name:'Guest');
+      var subject = 'Wedding Questionnaire - ' + ((cache.guests&&cache.guests[0])?cache.guests[0].name:'Guest');
       window.location.href = 'mailto:joedawes.dawes@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       sessionStorage.removeItem('weddingRSVP');
       document.getElementById('q-form-wrap').style.display = 'none';
