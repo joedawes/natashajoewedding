@@ -989,7 +989,7 @@
       html += '</div></div>';
 
       // Allergies
-      html += '<div class="q-field"><label class="q-label">Allergies <span style="color:var(--gold)">★</span></label>';
+      html += '<div class="q-field"><label class="q-label">Allergies <span style="color:var(--gold)">&#9733;</span></label>';
       html += '<p class="q-note">Please list any allergies - this is important for catering. Leave blank if none.</p>';
       html += '<textarea class="q-textarea" id="g'+i+'_allergies" placeholder="e.g. nuts, shellfish, gluten..." oninput="saveCache()">'+(g.allergies||'')+'</textarea></div>';
 
@@ -1007,7 +1007,7 @@
 
       // Dietary preferences
       html += '<div class="q-field"><label class="q-label">Dietary preferences</label>';
-      html += '<p class="q-note">Anything useful to know that isn't an allergy - e.g. strong dislikes, religious preferences, etc. Leave blank if none.</p>';
+      html += '<p class="q-note">Anything useful to know that is not an allergy - e.g. strong dislikes, religious preferences, etc. Leave blank if none.</p>';
       html += '<textarea class="q-textarea" id="g'+i+'_dietpref" placeholder="Leave blank if none" oninput="saveCache()">'+(g.dietPref||'')+'</textarea></div>';
 
       // Tailored suit
@@ -1085,7 +1085,7 @@
     // Validate at least one guest name
     var g0name = (document.getElementById('g0_name')||{}).value || '';
     if(!g0name.trim()) {
-      alert('Please enter at least the first guest's name.');
+      alert('Please enter at least the first guest name.');
       return;
     }
     saveCache();
