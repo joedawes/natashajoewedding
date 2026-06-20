@@ -184,6 +184,35 @@
   #lightbox-canvas { position:absolute; top:0;left:0;right:0;bottom:0; display:flex;align-items:center;justify-content:center; }
   #lightbox-img { transform-origin:center center; cursor:grab; user-select:none; max-width:95vw; max-height:90vh; display:block; }
   #lightbox-img.grabbing { cursor:grabbing; }
+
+  /* QUESTIONNAIRE */
+  .q-section { background: var(--white); border: 1px solid var(--cream-dark); padding: 2rem; margin-bottom: 1.5rem; }
+  .q-section-title { font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-dark); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gold-light); }
+  .q-field { margin-bottom: 1.25rem; }
+  .q-label { display: block; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.5rem; }
+  .q-note { font-size: 12px; color: var(--text-light); margin-bottom: 0.5rem; font-style: italic; }
+  .q-input { width: 100%; padding: 10px 14px; border: 1px solid var(--cream-dark); background: var(--cream); font-family: var(--font-sans); font-size: 14px; color: var(--text-dark); outline: none; transition: border 0.2s; }
+  .q-input:focus { border-color: var(--sage); }
+  .q-textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--cream-dark); background: var(--cream); font-family: var(--font-sans); font-size: 14px; color: var(--text-dark); outline: none; transition: border 0.2s; resize: vertical; min-height: 80px; }
+  .q-textarea:focus { border-color: var(--sage); }
+  .q-radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q-radio-label { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid var(--cream-dark); cursor: pointer; font-size: 13px; color: var(--text-mid); transition: all 0.2s; background: var(--cream); }
+  .q-radio-label:has(input:checked) { border-color: var(--sage); background: var(--sage); color: white; }
+  .q-radio-label input { display: none; }
+  .q-same-as { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 12px; color: var(--text-mid); cursor: pointer; }
+  .q-same-as input { accent-color: var(--sage); }
+  .guest-card { background: var(--cream); border: 1px solid var(--gold-light); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .guest-card-title { font-family: var(--font-serif); font-size: 1.15rem; color: var(--sage-dark); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+  .guest-count-btns { display: flex; gap: 0; margin-bottom: 2rem; border: 1px solid var(--cream-dark); width: fit-content; overflow: hidden; }
+  .guest-count-btn { padding: 10px 20px; font-size: 13px; border: none; background: transparent; cursor: pointer; color: var(--text-mid); font-family: var(--font-sans); transition: all 0.2s; }
+  .guest-count-btn.active { background: var(--sage); color: white; }
+  .q-submit { background: var(--sage); color: white; border: none; padding: 16px 40px; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; width: 100%; margin-top: 1rem; }
+  .q-submit:hover { background: var(--sage-dark); }
+  .q-success { display: none; text-align: center; padding: 3rem; background: var(--white); border: 1px solid var(--gold-light); }
+  .q-success-title { font-family: var(--font-serif); font-size: 1.8rem; color: var(--sage); margin-bottom: 1rem; }
+  .q-progress { height: 3px; background: var(--cream-dark); margin-bottom: 2rem; }
+  .q-progress-bar { height: 100%; background: var(--gold); transition: width 0.3s; }
+  .cached-notice { background: var(--gold-light); border: 1px solid var(--gold); padding: 0.75rem 1rem; font-size: 13px; color: var(--text-mid); margin-bottom: 1.5rem; display: none; }
 </style>
 </head>
 <body class="lang-en" id="site">
@@ -199,6 +228,7 @@
     <li><a href="#travel"><span class="en">Travel</span><span class="ru">Поездка</span></a></li>
     <li><a href="#photos"><span class="en">Photos</span><span class="ru">Фото</span></a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li><a href="#questionnaire"><span class="en">Questionnaire</span><span class="ru">Анкета</span></a></li>
     <li><a href="#contact"><span class="en">Contact</span><span class="ru">Контакт</span></a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:12px">
@@ -219,6 +249,7 @@
   <a href="#travel" onclick="toggleMenu()"><span class="en">Travel Guide</span><span class="ru">Путеводитель</span></a>
   <a href="#photos" onclick="toggleMenu()"><span class="en">Photos</span><span class="ru">Фотографии</span></a>
   <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#questionnaire" onclick="toggleMenu()"><span class="en">Questionnaire</span><span class="ru">Анкета</span></a>
   <a href="#contact" onclick="toggleMenu()"><span class="en">Contact</span><span class="ru">Контакт</span></a>
 </div>
 
@@ -643,8 +674,80 @@
       <div class="faq-answer"><span class="en">No strict dress code. Summer vibe and colours. Collared shirts for men. Most of the men will be getting the signature Hoi An tailored suits, but that is not mandatory. Sunglasses are acceptable during all but the ceremony. Hats are ok, baseball caps are not.</span><span class="ru">Строгого дресс-кода нет. Летний стиль и цвета. Мужчинам — рубашки с воротником. Большинство мужчин будут в костюмах из Хойана на заказ, но это не обязательно. Солнцезащитные очки допустимы везде, кроме церемонии. Шляпы можно, бейсболки нельзя.</span></div>
     </div>
   </div>
-  <div class="btn-group">
-    <a href="https://forms.google.com" class="btn btn-sage" target="_blank"><span class="en">RSVP Now</span><span class="ru">Подтвердить участие</span></a>
+
+</section>
+
+
+<!-- QUESTIONNAIRE -->
+<section id="questionnaire" style="max-width:900px;margin:0 auto;padding:5rem 2rem">
+  <p class="section-label"><span class="en">Questionnaire</span><span class="ru">Анкета</span></p>
+  <h2 class="section-title"><span class="en">Guest Questionnaire</span><span class="ru">Анкета гостей</span></h2>
+  <div class="section-rule"></div>
+  <p style="color:var(--text-mid);font-size:14px;margin-bottom:2rem">
+    <span class="en">Please fill this in for everyone in your group. Your answers are saved as you go — if you need to close and come back, your progress will be here waiting.</span>
+    <span class="ru">Пожалуйста, заполните анкету для всех в вашей группе. Ответы сохраняются по мере заполнения.</span>
+  </p>
+
+  <div class="cached-notice" id="cachedNotice">
+    <span class="en">✓ We found a saved response — your previous answers have been restored.</span>
+    <span class="ru">✓ Найдены сохранённые ответы — ваши данные восстановлены.</span>
+  </div>
+
+  <div id="q-form-wrap">
+    <!-- Progress bar -->
+    <div class="q-progress"><div class="q-progress-bar" id="qProgress" style="width:0%"></div></div>
+
+    <!-- Step 1: Group size -->
+    <div id="q-step-1" class="q-step">
+      <div class="q-section">
+        <p class="q-section-title"><span class="en">Who are you filling this in for?</span><span class="ru">Для кого вы заполняете анкету?</span></p>
+        <p class="q-note"><span class="en">Select how many people you are completing this for and we will generate a form for each person.</span><span class="ru">Выберите количество человек.</span></p>
+        <div class="guest-count-btns" id="guestCountBtns">
+          <button class="guest-count-btn" onclick="setGuestCount(1,this)">1</button>
+          <button class="guest-count-btn" onclick="setGuestCount(2,this)">2</button>
+          <button class="guest-count-btn" onclick="setGuestCount(3,this)">3</button>
+          <button class="guest-count-btn" onclick="setGuestCount(4,this)">4</button>
+          <button class="guest-count-btn" onclick="setGuestCount(5,this)">5+</button>
+        </div>
+        <div id="extra-count-wrap" style="display:none;margin-top:1rem">
+          <label class="q-label"><span class="en">Total number of guests</span><span class="ru">Общее количество гостей</span></label>
+          <input type="number" class="q-input" id="extraCount" min="5" max="20" value="5" style="width:100px" oninput="buildGuestForms()">
+        </div>
+      </div>
+      <div id="guest-forms-container"></div>
+
+      <div class="q-section" id="group-questions" style="display:none">
+        <p class="q-section-title"><span class="en">Group Details</span><span class="ru">Детали группы</span></p>
+
+        <div class="q-field">
+          <label class="q-label"><span class="en">Check-in date</span><span class="ru">Дата заезда</span></label>
+          <input type="date" class="q-input" id="checkin" style="max-width:220px" onchange="saveCache()">
+        </div>
+        <div class="q-field">
+          <label class="q-label"><span class="en">Check-out date</span><span class="ru">Дата выезда</span></label>
+          <input type="date" class="q-input" id="checkout" style="max-width:220px" onchange="saveCache()">
+        </div>
+
+        <div class="q-field">
+          <label class="q-label"><span class="en">Any plans for the week we should know about?</span><span class="ru">Есть ли планы на неделю, о которых нам стоит знать?</span></label>
+          <textarea class="q-textarea" id="weekPlans" placeholder="Leave blank if none" oninput="saveCache()"></textarea>
+        </div>
+
+        <div class="q-field">
+          <label class="q-label"><span class="en">Any questions for us?</span><span class="ru">Есть ли вопросы?</span></label>
+          <textarea class="q-textarea" id="questions" placeholder="Leave blank if none" oninput="saveCache()"></textarea>
+        </div>
+      </div>
+
+      <button class="q-submit" id="submitBtn" style="display:none" onclick="submitForm()">
+        <span class="en">Submit Questionnaire</span><span class="ru">Отправить анкету</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="q-success" id="q-success">
+    <p class="q-success-title">✦ <span class="en">Thank you!</span><span class="ru">Спасибо!</span></p>
+    <p style="color:var(--text-mid)"><span class="en">We've received your questionnaire. See you in Hoi An.</span><span class="ru">Мы получили вашу анкету. До встречи в Хойане.</span></p>
   </div>
 </section>
 
@@ -831,6 +934,221 @@
   document.getElementById('lightbox').addEventListener('touchend', function(e){
     if(e.touches.length < 2) lb.dragging=false;
   });
+
+
+  // ============ QUESTIONNAIRE ============
+  var guestCount = 0;
+
+  function setGuestCount(n, btn) {
+    document.querySelectorAll('.guest-count-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    if(n === 5) {
+      document.getElementById('extra-count-wrap').style.display = 'block';
+      guestCount = parseInt(document.getElementById('extraCount').value) || 5;
+    } else {
+      document.getElementById('extra-count-wrap').style.display = 'none';
+      guestCount = n;
+    }
+    buildGuestForms();
+  }
+
+  function buildGuestForms() {
+    if(guestCount === 0) return;
+    var container = document.getElementById('guest-forms-container');
+    var cache = getCache();
+    var html = '';
+    for(var i = 0; i < guestCount; i++) {
+      var g = cache.guests && cache.guests[i] ? cache.guests[i] : {};
+      var label = i === 0 ? 'Guest 1 (You)' : 'Guest ' + (i+1);
+      html += '<div class="guest-card" id="guest-card-'+i+'">';
+      html += '<p class="guest-card-title">'+label+'</p>';
+
+      // Name
+      html += '<div class="q-field"><label class="q-label">Full Name</label>';
+      html += '<input type="text" class="q-input" id="g'+i+'_name" placeholder="Full name" value="'+(g.name||'')+'" oninput="saveCache()"></div>';
+
+      // Hen or Stag
+      html += '<div class="q-field"><label class="q-label">Hen or Stag?</label><div class="q-radio-group">';
+      ['Hen party','Stag do','Neither','I need more information — please contact me'].forEach(function(opt){
+        var checked = g.henStag === opt ? 'checked' : '';
+        html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_henstag" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
+      });
+      html += '</div></div>';
+
+      // Welcome drink
+      html += '<div class="q-field"><label class="q-label">Welcome drink — cocktail or mocktail?</label><div class="q-radio-group">';
+      ['Cocktail','Mocktail'].forEach(function(opt){
+        var checked = g.drink === opt ? 'checked' : '';
+        html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_drink" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
+      });
+      html += '</div></div>';
+
+      // Allergies
+      html += '<div class="q-field"><label class="q-label">Allergies <span style="color:var(--gold)">★</span></label>';
+      html += '<p class="q-note">Please list any allergies — this is important for catering. Leave blank if none.</p>';
+      html += '<textarea class="q-textarea" id="g'+i+'_allergies" placeholder="e.g. nuts, shellfish, gluten..." oninput="saveCache()">'+(g.allergies||'')+'</textarea></div>';
+
+      // Dietary style
+      html += '<div class="q-field"><label class="q-label">Dietary style</label><div class="q-radio-group">';
+      ['Everything','Pescatarian','Vegetarian','Vegan','Halal','Kosher','Other'].forEach(function(opt){
+        var checked = g.dietStyle === opt ? 'checked' : '';
+        html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_dietstyle" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
+      });
+      html += '</div>';
+      if(g.dietStyle === 'Other') {
+        html += '<input type="text" class="q-input" id="g'+i+'_dietother" placeholder="Please specify" value="'+(g.dietOther||'')+'" style="margin-top:8px" oninput="saveCache()">';
+      }
+      html += '</div>';
+
+      // Dietary preferences
+      html += '<div class="q-field"><label class="q-label">Dietary preferences</label>';
+      html += '<p class="q-note">Anything useful to know that isn't an allergy — e.g. strong dislikes, religious preferences, etc. Leave blank if none.</p>';
+      html += '<textarea class="q-textarea" id="g'+i+'_dietpref" placeholder="Leave blank if none" oninput="saveCache()">'+(g.dietPref||'')+'</textarea></div>';
+
+      // Tailored suit
+      html += '<div class="q-field"><label class="q-label">Interested in a tailored suit or custom dress? <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:11px">(we are negotiating a group rate)</span></label><div class="q-radio-group">';
+      ['Yes','No','Maybe — tell me more'].forEach(function(opt){
+        var checked = g.suit === opt ? 'checked' : '';
+        html += '<label class="q-radio-label"><input type="radio" name="g'+i+'_suit" value="'+opt+'" '+checked+' onchange="saveCache()">'+opt+'</label>';
+      });
+      html += '</div></div>';
+
+      html += '</div>'; // end guest-card
+    }
+    container.innerHTML = html;
+    document.getElementById('group-questions').style.display = 'block';
+    document.getElementById('submitBtn').style.display = 'block';
+    updateProgress();
+  }
+
+  function getRadioVal(name) {
+    var el = document.querySelector('input[name="'+name+'"]:checked');
+    return el ? el.value : '';
+  }
+
+  function saveCache() {
+    try {
+      var data = {
+        guestCount: guestCount,
+        checkin: (document.getElementById('checkin')||{}).value || '',
+        checkout: (document.getElementById('checkout')||{}).value || '',
+        weekPlans: (document.getElementById('weekPlans')||{}).value || '',
+        questions: (document.getElementById('questions')||{}).value || '',
+        guests: []
+      };
+      for(var i = 0; i < guestCount; i++) {
+        data.guests.push({
+          name: (document.getElementById('g'+i+'_name')||{}).value || '',
+          henStag: getRadioVal('g'+i+'_henstag'),
+          drink: getRadioVal('g'+i+'_drink'),
+          allergies: (document.getElementById('g'+i+'_allergies')||{}).value || '',
+          dietStyle: getRadioVal('g'+i+'_dietstyle'),
+          dietOther: (document.getElementById('g'+i+'_dietother')||{}).value || '',
+          dietPref: (document.getElementById('g'+i+'_dietpref')||{}).value || '',
+          suit: getRadioVal('g'+i+'_suit')
+        });
+      }
+      sessionStorage.setItem('weddingRSVP', JSON.stringify(data));
+      updateProgress();
+    } catch(e) {}
+  }
+
+  function getCache() {
+    try {
+      var d = sessionStorage.getItem('weddingRSVP');
+      return d ? JSON.parse(d) : {};
+    } catch(e) { return {}; }
+  }
+
+  function updateProgress() {
+    var total = 0, filled = 0;
+    for(var i = 0; i < guestCount; i++) {
+      total += 5; // name, henstag, drink, dietstyle, suit
+      if((document.getElementById('g'+i+'_name')||{}).value) filled++;
+      if(getRadioVal('g'+i+'_henstag')) filled++;
+      if(getRadioVal('g'+i+'_drink')) filled++;
+      if(getRadioVal('g'+i+'_dietstyle')) filled++;
+      if(getRadioVal('g'+i+'_suit')) filled++;
+    }
+    if(total > 0) {
+      var pct = Math.round((filled/total)*100);
+      document.getElementById('qProgress').style.width = pct + '%';
+    }
+  }
+
+  function submitForm() {
+    // Validate at least one guest name
+    var g0name = (document.getElementById('g0_name')||{}).value || '';
+    if(!g0name.trim()) {
+      alert('Please enter at least the first guest's name.');
+      return;
+    }
+    saveCache();
+    var cache = getCache();
+
+    // Build email body to send via mailto (fallback — no backend needed)
+    var body = 'WEDDING QUESTIONNAIRE SUBMISSION\n\n';
+    body += 'Check-in: ' + cache.checkin + '\n';
+    body += 'Check-out: ' + cache.checkout + '\n';
+    body += 'Plans for the week: ' + cache.weekPlans + '\n';
+    body += 'Questions: ' + cache.questions + '\n\n';
+
+    (cache.guests||[]).forEach(function(g, i){
+      body += '--- GUEST ' + (i+1) + ': ' + g.name + ' ---\n';
+      body += 'Hen/Stag: ' + g.henStag + '\n';
+      body += 'Drink: ' + g.drink + '\n';
+      body += 'Allergies: ' + (g.allergies||'None') + '\n';
+      body += 'Diet style: ' + g.dietStyle + (g.dietOther ? ' ('+g.dietOther+')' : '') + '\n';
+      body += 'Diet preferences: ' + (g.dietPref||'None') + '\n';
+      body += 'Tailored suit/dress: ' + g.suit + '\n\n';
+    });
+
+    var scriptUrl = 'https://script.google.com/macros/s/AKfycbwO9I2okYkYk4zdF5x2wWBe5dcQinPXzAipdin9pyQcZQQt5E5xeSHEjNuTAvPkqE9U/exec';
+
+    fetch(scriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cache)
+    }).then(function() {
+      sessionStorage.removeItem('weddingRSVP');
+      document.getElementById('q-form-wrap').style.display = 'none';
+      document.getElementById('q-success').style.display = 'block';
+    }).catch(function() {
+      // Fallback to mailto if fetch fails
+      var subject = 'Wedding Questionnaire — ' + ((cache.guests&&cache.guests[0])?cache.guests[0].name:'Guest');
+      window.location.href = 'mailto:joedawes.dawes@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      sessionStorage.removeItem('weddingRSVP');
+      document.getElementById('q-form-wrap').style.display = 'none';
+      document.getElementById('q-success').style.display = 'block';
+    });
+  }
+
+  // Restore cache on load
+  window.addEventListener('load', function(){
+    var cache = getCache();
+    if(cache.guestCount && cache.guestCount > 0) {
+      document.getElementById('cachedNotice').style.display = 'block';
+      guestCount = cache.guestCount;
+      var n = Math.min(guestCount, 5);
+      var btns = document.querySelectorAll('.guest-count-btn');
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      if(guestCount >= 5) {
+        btns[4].classList.add('active');
+        document.getElementById('extra-count-wrap').style.display = 'block';
+        document.getElementById('extraCount').value = guestCount;
+      } else {
+        btns[guestCount-1].classList.add('active');
+      }
+      buildGuestForms();
+      // Restore group fields
+      if(cache.checkin) document.getElementById('checkin').value = cache.checkin;
+      if(cache.checkout) document.getElementById('checkout').value = cache.checkout;
+      if(cache.weekPlans) document.getElementById('weekPlans').value = cache.weekPlans;
+      if(cache.questions) document.getElementById('questions').value = cache.questions;
+    }
+  });
+
 </script>
 
 <!-- LIGHTBOX PAN & ZOOM -->
