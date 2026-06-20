@@ -794,11 +794,11 @@
 </footer>
 
 <script>
-  // COUNTDOWN — target 3:30pm Vietnam time (UTC+7) on 8 Aug 2026
+  // COUNTDOWN — target 3:30pm Vietnam time (UTC+7) on 8 Aug 2026 = 08:30 UTC
   function updateCountdown() {
-    var target = new Date('2026-08-08T08:30:00Z'); // 3:30pm UTC+7 = 08:30 UTC
+    var target = new Date('2026-08-08T08:30:00.000Z');
     var now = new Date();
-    var diff = target - now;
+    var diff = target.getTime() - now.getTime();
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML = '<p style="font-family:var(--font-serif);font-size:1.5rem;color:var(--gold)">Today is the day! ✦</p>';
       return;
