@@ -1095,6 +1095,12 @@
     saveCache();
     var cache = getCache();
 
+    // Read group fields directly from DOM to ensure latest values
+    var weekPlansVal = (document.getElementById('weekPlans')||{}).value || '';
+    var questionsVal = (document.getElementById('questions')||{}).value || '';
+    cache.weekPlans = weekPlansVal;
+    cache.questions = questionsVal;
+
     // Build email body to send via mailto (fallback - no backend needed)
     var body = 'WEDDING QUESTIONNAIRE SUBMISSION\n\n';
     body += 'Check-in: ' + cache.checkin + '\n';
