@@ -796,6 +796,7 @@
   <p style="font-family:var(--font-serif);font-size:1rem;color:var(--text-mid);margin-bottom:0.5rem">Natasha & Joe · 08.08.2026</p>
   <p><span class="en">Bliss Hoi An Beach Resort, Vietnam</span><span class="ru">Bliss Hoi An Beach Resort, Вьетнам</span></p>
 </footer>
+<div style="text-align:center;padding:6px;font-size:10px;color:#ccc;letter-spacing:0.05em">v1.22</div>
 
 <script>
   // COUNTDOWN
@@ -1118,21 +1119,31 @@
       body += 'Tailored suit/dress: ' + g.suit + '\n\n';
     });
 
-    var scriptUrl = 'https://script.google.com/macros/s/AKfycbxT6Q-C520crXVO7LIvIpZOYd50xQnAyf9Ah0sy5KEXYmU0e7-4xKY6Wng-4vVOs_Y/exec';
+    var scriptUrl = 'https://script.google.com/macros/s/AKfycbzn28gjUZqO2fe7X_AlKrXXaXv3sKJdORlZMx-z2xqj745Fs7XCwOjUobir6coqITTn/exec';
+
+    var payload = {
+      guestCount: cache.guestCount,
+      checkin: cache.checkin || '',
+      checkout: cache.checkout || '',
+      weekPlans: weekPlansVal,
+      questions: questionsVal,
+      guests: cache.guests || []
+    };
+
+    console.log('Submitting:', JSON.stringify(payload));
+
+    var form = new FormData();
+    form.append('data', JSON.stringify(payload));
 
     fetch(scriptUrl, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(cache)
+      body: form
     }).then(function() {
       sessionStorage.removeItem('weddingRSVP');
       document.getElementById('q-form-wrap').style.display = 'none';
       document.getElementById('q-success').style.display = 'block';
     }).catch(function() {
-      // Fallback to mailto if fetch fails
-      var subject = 'Wedding Questionnaire - ' + ((cache.guests&&cache.guests[0])?cache.guests[0].name:'Guest');
-      window.location.href = 'mailto:joedawes.dawes@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       sessionStorage.removeItem('weddingRSVP');
       document.getElementById('q-form-wrap').style.display = 'none';
       document.getElementById('q-success').style.display = 'block';
